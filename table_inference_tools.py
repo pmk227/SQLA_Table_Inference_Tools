@@ -20,7 +20,6 @@ import pandas.api.types as pd_api
 import pandas as pd
 from sqlalchemy import Table, Column, MetaData
 from sqlalchemy.types import TIMESTAMP, BigInteger, Boolean, Date, DateTime, Float, Integer, SmallInteger, Text, Time
-import logging # delete for upload to public git
 
 DialectType = ["mysql", "postgresql", "sqlite"]
 
@@ -91,7 +90,7 @@ class TableInferenceTools:
                         return TIMESTAMP(timezone=True)
                 return DateTime
             case "timedelta64":
-                self.logger.warning("'timedelta' type is unsupported; will be written as int value to db") # Delete for upload to public git
+                print("'timedelta' type is unsupported; will be written as int value to db")
                 return BigInteger
 
             # Numeric
