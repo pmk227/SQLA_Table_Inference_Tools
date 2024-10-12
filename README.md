@@ -1,4 +1,6 @@
-# SQLA_Table_inference_tools
+# SQLA_Table_Inference_Tools
+
+Enjoy using my quick script! If you'd like me to add additional features, please let me know!
 Purpose:
 This is a simple library that allows one to infer a table schema from a Pandas DataFrame to be used by SQLAlchemy.
 This can be used to easily create a table from a pandas dataframe.
