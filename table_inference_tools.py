@@ -35,22 +35,30 @@ class TableInferenceTools:
         self.metadata = MetaData()
 
     def get_table_schema(self, df: pd.DataFrame, table_name: str) -> Table:
+        """
+        Inputs:
+        df: a Pandas Data Frame from which the schema will be inferred
+        table_name: the name of the table that that will be used for the schema
+
+        Outputs:
+        A SQLAlchemy Table object, to be used to create tables using SQLAlchemy
+        """
         self.data = df
         self.table_name = table_name
 
         for colname in self.data.columns:
-            self.column_type_map[colname] = self.infer_sqlalchemy_dtype(colname)
+            self.column_type_map[colname] = self._infer_sqlalchemy_dtype(colname)
 
-        self.create_table_schema(table_name)
+        self._create_table_schema(table_name)
         return self.table_schema
 
-    def create_table_schema(self, table_name):
+    def _create_table_schema(self, table_name):
         self.table_schema = Table(table_name, self.metadata)
 
         for col in self.column_type_map:
             self.table_schema.append_column(Column(col, self.column_type_map[col]))
 
-    def infer_sqlalchemy_dtype(self, colname):
+    def _infer_sqlalchemy_dtype(self, colname):
         """
         This code is modified, but in effect copied from, the sqlalchemy and pandas Type inference code.
 
